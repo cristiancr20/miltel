@@ -1,6 +1,21 @@
 const datos = require('../models/usuario');
 
 /* REGISTRAR USUARIO*/
+/**
+ * @api {post} /registrarUsuario Registrar los datos personales para el usuario como son nombre, apellido, correo, contrasena y el estado
+ * @apiName registrarPersona
+ * @apiGroup Usuario
+ *
+ * @apiParam {String}  Nombre del usuario. Ejem. "nombre": "Cristian"
+ * @apiParam {String} Apellido del usuario. Ejem. "apellido": Capa"
+ * @apiParam {String} Correo del usuario. Ejem "correo":"test@test.com"
+ * @apiParam {String} Cotrasena del usuario. Ejem.
+ * "contrasena":"test123"
+ * @apiParam {String} El estado del usuario el cual sirve para poder tener acceso a la cuenta. Ejem. "estado": "Activo" 
+ * 
+ * @apiSuccess {Object}:{}
+ * @apiError {Object}:{}
+ */
 exports.registrarPersona = (req, res) => {
   /* 
   Ejemplo en Postman de como registrar un usuario
@@ -13,15 +28,8 @@ exports.registrarPersona = (req, res) => {
     "estado": "Activo" 
   }
   */
-  const { nombre, apellido, correo, contrasena, estado } = req.body;
 
-  const nuevoRegistro = new datos({
-    nombre,
-    apellido,
-    correo,
-    contrasena,
-    estado
-  })
+  const nuevoRegistro = new datos(req.body);
   nuevoRegistro.save((error, user) => {
     if (error) {
       console.log("Revisar Datos")
@@ -32,7 +40,22 @@ exports.registrarPersona = (req, res) => {
 }
 
 /* EDITAR DATOS DE USUARIO SIN EL ESTADO*/
-
+/**
+ * @api {post} /editarUsuario Editar los datos personales para el usuario como son nombre, apellido, correo, contrasena y el estado
+ * @apiName editarPersona
+ * @apiGroup Usuario
+ *
+ * @apiParam {Number} id del usuario
+ * @apiParam {String}  Nombre del usuario. Ejem. "nombre": "Cristian"
+ * @apiParam {String} Apellido del usuario. Ejem. "apellido": Capa"
+ * @apiParam {String} Correo del usuario. Ejem "correo":"test@test.com"
+ * @apiParam {String} Cotrasena del usuario. Ejem.
+ * "contrasena":"test123"
+ * @apiParam {String} El estado del usuario el cual sirve para poder tener acceso a la cuenta. Ejem. "estado": "Activo" 
+ * 
+ * @apiSuccess {Object}:{}
+ * @apiError {Object}:{}
+ */
 exports.editarPersona = (req, res) => {
   
 /* 
@@ -62,6 +85,17 @@ const id = req.body._id;
 }
 
 /* EDITAR EL ESTADO DEL USUARIO */
+/**
+ * @api {post} /editarEstado Editar el estado del usuario para su inicio de sesion  
+ * @apiName editarEstado
+ * @apiGroup Usuario
+ *
+ * @apiParam {Number} id del usuario
+ * @apiParam {String} El estado del usuario el cual sirve para poder tener acceso a la cuenta. Ejem. "estado": "Activo" 
+ * 
+ * @apiSuccess {Object}:{}
+ * @apiError {Object}:{}
+ */
 exports.editarEstado = (req, res) => {
 /* 
   Ejemplo en Postman de como editar el estado del usuario.
@@ -70,7 +104,6 @@ exports.editarEstado = (req, res) => {
   {
     "_id":"635c5f0e702489c2df5acd22",
     "estado": "Inactivo"
-        
   }
 */
 
@@ -88,6 +121,20 @@ exports.editarEstado = (req, res) => {
 
 
 /* INICIO DE SESION DEL USUARIO */
+/**
+ * @api {post} /iniciarSesion Iniciar sesion de la cuenta con los datos de correo y contrasena, los cuales debe ingresar el usuario, internamente tambien pide el estado del usuairo el cual debe estar "Activo"
+ * @apiName editarPersona
+ * @apiGroup Usuario
+ *
+ * @apiParam {String} Correo del usuario. Ejem "correo":"test@test.com"
+ * @apiParam {String} Cotrasena del usuario. Ejem.
+ * "contrasena":"test123"
+ * @apiParam {String} El estado del usuario el cual sirve para poder tener acceso a la cuenta. Ejem. "estado": "Activo" 
+ * 
+ * @apiSuccess {Object}:{}
+ * @apiError {Object}:{}
+ */
+
 exports.iniciarSesion = (req, res) => {
 
   /* 
@@ -98,7 +145,6 @@ exports.iniciarSesion = (req, res) => {
   {
     "correo":"erika@gmail.com",
     "contrasena": "1234",
-    "estado": "Activo"
   }
   */
 
@@ -121,7 +167,40 @@ exports.iniciarSesion = (req, res) => {
   })
 }
 
+/* LISTAR USUARIO */
+/**
+ * @api {get} /listarUsuario Lista todos los usuario que se tenga en la base de datos
+ * @apiName listarUsuario
+ * @apiGroup Usuario
+ * 
+ * @apiSuccess {Object}:{}
+ * @apiError {Object}:{}
+ */
+exports.listarUsuario = (req, res) => {
+datos.find().exec((error, data) => {
+  if (error) {
+    console.log("Error al mostrar los datos")
+  } else {
+    /* console.log({ data: data }) */
+    return res.status(200).json({
+      data:data
+    });
+  }
+})
+}
 
+/* Eliminar Usuarios */
+
+/**
+ * @api {post} /eliminarUsuario Eliminar al usuario 
+ * @apiName eliminarUsuario
+ * @apiGroup Usuario
+ *
+ * @apiParam {Number} id del usuario
+ * 
+ * @apiSuccess {Object}:{}
+ * @apiError {Object}:{}
+ */
 exports.eliminarUsuario  = (req, res) => {
   const id = req.body._id;
 

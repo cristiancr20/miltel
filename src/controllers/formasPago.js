@@ -1,6 +1,20 @@
 const datos = require('../models/formasPago');
 
 /* REGISTRO DE FORMAS DE PAGO */
+
+/**
+ * @api {post} /registrarFormaPago Registrar los datos de la forma de pago.
+ * @apiName registrarFormaPago
+ * @apiGroup formasPago
+ *
+ * @apiParam {String} Nombre del tipo de pago que se realizará. Ejm. "nombre": "Pagos en efectivo"
+ * @apiParam {String} la URL de la imagen que vamos a colocar. Ejm. "url": "https://dplnews.com/wp-content/uploads/2019/04/dplnews_efectivo_jb190419.jpg"
+ * @apiParam {String} Nombre de la imagen.
+ * @apiParam {String} la dimension o tamano de la imagen.
+ * 
+ * @apiSuccess {Object}:{}
+ * @apiError {Object}:{}
+ */
 exports.registrarFormaPago = (req, res)=> {
   /*
   Ejemplo del registro de forma de pago en Postman.
@@ -26,6 +40,22 @@ exports.registrarFormaPago = (req, res)=> {
 }
 
 /* EDICION FORMA DE PAGO */
+
+/**
+ * @api {post} /editarFormaPago Editar los datos de formas de pago.
+ * @apiName editarFormaPago
+ * @apiGroup formasPago
+ *
+ * @apiParam {Number} id del dato forma de pago Ejm. "_id": "6362d8ea6bc747ce55d7ee42"
+ * @apiParam {String} Nombre del tipo de pago que se realizará. Ejm. "nombre": "Pagos en efectivo"
+ * @apiParam {String} la URL de la imagen que vamos a colocar. Ejm. "url": "https://dplnews.com/wp-content/uploads/2019/04/dplnews_efectivo_jb190419.jpg"
+ * @apiParam {String} Nombre de la imagen.
+ * @apiParam {String} la dimension o tamano de la imagen.
+ * 
+ * @apiSuccess {Object}:{}
+ * @apiError {Object}:{}
+ */
+
 exports.editarFormaPago = (req, res)=>{
   /* 
 
@@ -57,12 +87,21 @@ exports.editarFormaPago = (req, res)=>{
 
 /* LISTAR FORMAS DE PAGO */
 
+/**
+ * @api {get} /listarFormaPago Se listan los datos de las formas de pagos.
+ * @apiName editarFormaPago
+ * @apiGroup formasPago
+ * 
+ * @apiSuccess {Object}:{}
+ * @apiError {Object}:{}
+ */
+
 exports.listarFormaPago = (req, res)=>{
   datos.find().exec((error, data) => {
     if (error) {
       console.log("Error al mostrar los datos")
     } else {
-      console.log({ data: data })
+      /* console.log({ data: data }) */
       return res.status(200).json({
         data:data
       });
@@ -70,6 +109,19 @@ exports.listarFormaPago = (req, res)=>{
   })
 }
 
+
+/* ELIMINAR FORMAS PAGO */
+
+/**
+ * @api {post} /eliminarFormasPago Se eliman los datos de formas de pago.
+ * @apiName eliminarFormasPago
+ * @apiGroup formasPago
+ *
+ * @apiParam {Number} id del dato forma de pago Ejm. "_id": "6362d8ea6bc747ce55d7ee42"
+ * 
+ * @apiSuccess {Object}:{}
+ * @apiError {Object}:{}
+ */
 exports.eliminarFormasPago = (req, res) => {
   const id = req.body._id;
 

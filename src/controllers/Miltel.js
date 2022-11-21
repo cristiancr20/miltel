@@ -1,6 +1,36 @@
 const datos = require('../models/miltel');
 
 /* REGISTRO DE LOS DATOS DE LA PÁGINA PRINCIPAL */
+/**
+ * @api {post} /registroMiltel Registrar los datos principales de la página.
+ * @apiName registroMiltel
+ * @apiGroup Miltel
+ *
+ * @apiParam {String} URL de la imagen principal de la pagina de Miltel
+ * @apiParam {String} Dimension de la imagen de la imagen de la pagina de Miltel
+ * 
+ * @apiParam {String} URL del video de la pagina de Miltel
+ * @apiParam {String} Número de contacto de la pagina Miltel
+ * @apiParam {String} Correo de la pagina Miltel
+ * @apiParam {String} Mensaje de inicio de la página de Miltel
+ * 
+ * @apiParam {String} Nombre de la red social en la que se encuentre
+ * @apiParam {String} URL del icono o imagen de la red social 
+ * @apiParam {String} URL oficial de la red social. Ejm. "urlRedSocial": "www.facebook.com/miltel"
+ *
+ * @apiParam {String} URL de imagen de la forma de pago.
+ * @apiParam {String} Nombre de la imagen de la forma de pago
+ * @apiParam {String} Dimension de la imagen de la forma de pago
+ * 
+ * @apiParam {String} URL de la imagen de cobertura 
+ * @apiParam {String} Nombre de la imagen de la cobertura
+ * @apiParam {String} Dimension de la imagen de cobertura
+ * 
+ * @apiParam {String} Ingresamos el objetivo principal de la seccion Quienes Somos.
+ * 
+ * @apiSuccess {Object}:{}
+ * @apiError {Object}:{}
+ */
 exports.registroMiltel = (req, res) => {
   /* 
   EJEMPLO DE REGISTRO DE LOS DATOS EN POSTMAN
@@ -43,7 +73,38 @@ exports.registroMiltel = (req, res) => {
 }
 
 /* EDICIÓN DE LOS DATOS DE LA PÁGINA PRINCIPAL */
-
+/**
+ * @api {post} /edicionMiltel Edita los datos principales de la página.
+ * @apiName edicionMiltel
+ * @apiGroup Miltel
+ * 
+ * @apiParam {Number} id de la información general
+ * 
+ * @apiParam {String} URL de la imagen principal de la pagina de Miltel
+ * @apiParam {String} Dimension de la imagen de la imagen de la pagina de Miltel
+ * 
+ * @apiParam {String} URL del video de la pagina de Miltel
+ * @apiParam {String} Número de contacto de la pagina Miltel
+ * @apiParam {String} Correo de la pagina Miltel
+ * @apiParam {String} Mensaje de inicio de la página de Miltel
+ * 
+ * @apiParam {String} Nombre de la red social en la que se encuentre
+ * @apiParam {String} URL del icono o imagen de la red social 
+ * @apiParam {String} URL oficial de la red social. Ejm. "urlRedSocial": "www.facebook.com/miltel"
+ *
+ * @apiParam {String} URL de imagen de la forma de pago.
+ * @apiParam {String} Nombre de la imagen de la forma de pago
+ * @apiParam {String} Dimension de la imagen de la forma de pago
+ * 
+ * @apiParam {String} URL de la imagen de cobertura 
+ * @apiParam {String} Nombre de la imagen de la cobertura
+ * @apiParam {String} Dimension de la imagen de cobertura
+ * 
+ * @apiParam {String} Ingresamos el objetivo principal de la seccion Quienes Somos.
+ * 
+ * @apiSuccess {Object}:{}
+ * @apiError {Object}:{}
+ */
 exports.edicionMiltel = (req, res) => {
 
   /* 
@@ -89,13 +150,20 @@ exports.edicionMiltel = (req, res) => {
 }
 
 /* LISTAR DATOS DE LA PÁGINA PRINCIPAL */
-
+/**
+ * @api {get} /listarMiltel Listar los datos principales de la página.
+ * @apiName listarMiltel
+ * @apiGroup Miltel
+ * 
+ * @apiSuccess {Object}:{}
+ * @apiError {Object}:{}
+ */
 exports.listarMiltel = (req, res) => {
   datos.find().exec((error, data) => {
     if (error) {
       console.log("Error al mostrar los datos")
     } else {
-      console.log({ data: data })
+      /* console.log({ data: data }) */
       return res.status(200).json({
         data:data
       });
@@ -103,6 +171,18 @@ exports.listarMiltel = (req, res) => {
   })
 }
 
+
+/* ELIMINAR LOS DATOS GENERALES DE LA PÁGINA */
+/**
+ * @api {post} /eliminarMiltel Eliminar los datos principales de la página.
+ * @apiName eliminarMiltel
+ * @apiGroup Miltel
+ * 
+ * @apiParam {Number} id de la información general
+ * 
+ * @apiSuccess {Object}:{}
+ * @apiError {Object}:{}
+ */
 exports.eliminarMiltel = (req, res) => {
   const id = req.body._id;
 

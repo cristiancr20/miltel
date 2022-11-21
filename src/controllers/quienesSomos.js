@@ -1,6 +1,19 @@
 const datos = require('../models/quienesSomos');
 
 /* REGISTRAR QUIENES SOMOS */
+
+/**
+ * @api {post} /registrarQuienesSomos Registrar los datos personales de la empresa "Mision, Vision".
+ * @apiName registrarQuienesSomos
+ * @apiGroup quienesSomos
+ *
+ * @apiParam {String} Nombre de opcion quienes somos. Ejm. "nombreQuienesSomos": "Misión", 
+ * @apiParam {String} Conceptop de la opcion quienes somos. Ejm. "conceptoQuienesSomos": "Ser una empresa con constante actualización tecnológica, encargándose de dar soluciones eficientes frente a las problemáticas comunicacionales, inspirando confianza en hogares y empresas para ser parte de nuestro grupo familiar MilTel"
+ *
+ * @apiSuccess {Object}:{}
+ * @apiError {Object}:{}
+ */
+
 exports.registrarQuienesSomos = (req, res) => {
   /* 
   {
@@ -21,7 +34,18 @@ exports.registrarQuienesSomos = (req, res) => {
 }
 
 /* EDITAR QUIENES SOMOS */
-
+/**
+ * @api {post} /editarQuienesSomos Editar los datos personales de la empresa "Mision, Vision".
+ * @apiName editarQuienesSomos
+ * @apiGroup quienesSomos
+ *
+ * @apiParam {Number} id de los datos de quienes Somos. Ejm. "_id": "63618bd7fb9c056f5f675007"
+ * @apiParam {String} Nombre de opcion quienes somos. Ejm. "nombreQuienesSomos": "Misión", 
+ * @apiParam {String} Conceptop de la opcion quienes somos. Ejm. "conceptoQuienesSomos": "Ser una empresa con constante actualización tecnológica, encargándose de dar soluciones eficientes frente a las problemáticas comunicacionales, inspirando confianza en hogares y empresas para ser parte de nuestro grupo familiar MilTel"
+ *
+ * @apiSuccess {Object}:{}
+ * @apiError {Object}:{}
+ */
 exports.editarQuienesSomos = (req, res) => {
   const id = req.body._id;
   datos.findByIdAndUpdate(id, (req.body), (error, data) => {
@@ -35,13 +59,21 @@ exports.editarQuienesSomos = (req, res) => {
 }
 
 /* LISTAR QUIENES SOMOS */
-
+/**
+ * @api {get} /listarQuienesSomos Listar los datos personales de la empresa "Mision, Vision"..
+ * @apiName listarQuienesSomos
+ * @apiGroup quienesSomos
+ * @apiParam {Number} id de los datos de quienes Somos. Ejm. "_id": "63618bd7fb9c056f5f675007"
+ *
+ * @apiSuccess {Object}:{}
+ * @apiError {Object}:{}
+ */
 exports.listarQuienesSomos = (req, res) => {
   datos.find().exec((error, data) => {
     if (error) {
       console.log("Error al mostrar los datos")
     } else {
-      console.log({ data: data })
+      /* console.log({ data: data }) */
       return res.status(200).json({
         data:data
       });
@@ -49,6 +81,16 @@ exports.listarQuienesSomos = (req, res) => {
   })
 }
 
+/* ELIMINAR QUIENES SOMOS*/
+/**
+ * @api {post} /eliminarQuienesSomos Eliminar los datos personales de la empresa "Mision, Vision".
+ * @apiName eliminarQuienesSomos
+ * @apiGroup quienesSomos
+ * @apiParam {Number} id de los datos de quienes Somos. Ejm. "_id": "63618bd7fb9c056f5f675007"
+ *
+ * @apiSuccess {Object}:{}
+ * @apiError {Object}:{}
+ */
 exports.eliminarQuienesSomos = (req, res) => {
   const id = req.body._id;
 

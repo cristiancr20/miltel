@@ -1,6 +1,19 @@
 const datos = require('../models/cobertura');
 
 /* REGISTRAR COBERTURA */
+
+/**
+ * @api {post} /registrarCobertura Registrar una Cobertura
+ * @apiName registrarCobertura
+ * @apiGroup Cobertura
+ *
+ * @apiParam {String} Nombre del tipo de cobertura.
+ * @apiParam {Array} Un arreglo de todos los lugares donde esta el tipo de cobertura. Ejm ["Amaluza", "Loja", "Macara"]
+ * 
+ *
+ * @apiSuccess {Object}:{}
+ * @apiError {Object}:{}
+ */
 exports.registrarCobertura = (req, res) => {
 
   /*
@@ -10,15 +23,11 @@ exports.registrarCobertura = (req, res) => {
       "tipo":{
             "nombre":"Fibra Óptica Gpon",
           "lugar": ["Amaluza", "Loja"]
-      },
-      "imagen":{
-          "nombreImagen":"Mapa", 
-          "dimension": "250",
-          "url": "https://www.tooltyp.com/wp-content/uploads/2014/10/1900x920-8-beneficios-de-usar-imagenes-en-nuestros-sitios-web.jpg"
       }
     } 
   */
 
+  
   const nuevoRegistro = new datos(req.body)
   nuevoRegistro.save((error, user) => {
     if (error) {
@@ -31,6 +40,18 @@ exports.registrarCobertura = (req, res) => {
 
 /* EDITAR COBERTURA */
 
+/**
+ * @api {post} /editarCobertura Edicion de los datos de la Cobertura
+ * @apiName editarCobertura
+ * @apiGroup Cobertura
+ *
+ * @apiParam {Number} id del dato que se desea modificar. Ejm. "_id": "63618bd7fb9c056f5f675007",
+ * @apiParam {String} Nombre del tipo de cobertura.
+ * @apiParam {Array} Un arreglo de todos los lugares donde esta el tipo de cobertura. Ejm ["Amaluza", "Loja", "Macara"]
+ * 
+ * @apiSuccess {Object}:{}
+ * @apiError {Object}:{}
+ */
 exports.editarCobertura = (req, res) => {
 
   /* 
@@ -44,7 +65,8 @@ exports.editarCobertura = (req, res) => {
       }
     }
     
-    Llega a ser el mismo procedimiento que al momento de crear, con la única diferencia 
+    Llega a ser el mismo procedimiento que al momento de crear,
+    con la única diferencia 
     que aquí se pide el _id del usuario.
     
   */
@@ -60,6 +82,15 @@ exports.editarCobertura = (req, res) => {
 }
 
 /* LISTAR COBERTURA */
+
+/**
+ * @api {get} /listarCobertura Listar todos los datos de la Cobertura
+ * @apiName listarCobertura
+ * @apiGroup Cobertura
+ * 
+ * @apiSuccess {Object}:{}
+ * @apiError {Object}:{}
+ */
 exports.listarCobertura = (req, res) => {
 
   /* 
@@ -81,13 +112,26 @@ exports.listarCobertura = (req, res) => {
     if (error) {
       console.log("Error al mostrar los datos")
     } else {
-      console.log({ data: data })
-      /* return res.status(200).json({
+      /* console.log({ data: data }) */
+      return res.status(200).json({
         data:data
-      }); */
+      });
     }
   })
 }
+
+
+/* Eliminar cobertura */
+/**
+ * @api {post} /eliminarCobertura Elimina el dato de la Cobertura que se desee.
+ * @apiName eliminarCobertura
+ * @apiGroup Cobertura
+ *
+ * @apiParam {Number} id del dato. Ejm. "_id": "63618bd7fb9c056f5f675007"
+ * 
+ * @apiSuccess {Object}:{}
+ * @apiError {Object}:{}
+ */
 
 exports.eliminarCobertura = (req, res) => {
   const id = req.body._id;

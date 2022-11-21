@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const{registrarCobertura, editarCobertura, listarCobertura, eliminarCobertura} = require("../controllers/Cobertura")
+const{registrarCobertura, editarCobertura, 
+  listarCobertura, eliminarCobertura} = 
+  require("../controllers/Cobertura")
 
 router.post('/registrarCobertura', registrarCobertura);
 router.post('/editarCobertura', editarCobertura);

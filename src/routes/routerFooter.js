@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-const{registrarOpcion, editarOpcion, listarOpcion, eliminarOpcion}= require('../controllers/Footer');
+const{registrarFooter, editarFooter, listarFooter, eliminarFooter}= require('../controllers/Footer');
 
-router.post('/registrarOpcion', registrarOpcion);
-router.post('/editarOpcion', editarOpcion);
-router.get('/listarOpcion', listarOpcion);
-router.post('/eliminarOpcion', eliminarOpcion);
+router.post('/registrarFooter', registrarFooter);
+router.post('/editarFooter', editarFooter);
+router.get('/listarFooter', listarFooter);
+router.post('/eliminarFooter', eliminarFooter);
 
 module.exports = router;

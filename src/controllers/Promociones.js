@@ -2,6 +2,19 @@ const { request } = require('express')
 const datos = require ('../models/promociones')
 
 /* REGISTRAR PROMOCIONES */
+
+/**
+ * @api {post} /registrarPromociones Registrar las promociones
+ * @apiName registrarPromociones
+ * @apiGroup Promociones
+ *
+ * @apiParam {String} Nombre de la promocion. Ejem. "nombre":"Super"
+ * @apiParam {String} La velocidad con se va adquirir. Ejem. "velocidad": "40 MBPS"
+ *@apiParam {String} Descripcion de las plataformas que vienen en la promocion. Ejem. "descripcion": "Disney+"
+ *
+ * @apiSuccess {Object}:{}
+ * @apiError {Object}:{}
+ */
 exports.registrarPromociones = (req, res) =>{
 
   /* 
@@ -25,6 +38,20 @@ exports.registrarPromociones = (req, res) =>{
 }
 
 /* EDITAR PROMOCIONES */
+/**
+ * @api {post} /editarPromociones Edita las promociones
+ * @apiName editarPromociones
+ * @apiGroup Promociones
+ *
+ * @apiParam {Number} Id de la promocion Ejm. "_id":"6369414484031672160411cf"
+ * @apiParam {String} Nombre de la promocion. Ejem. "nombre":"Super"
+ * @apiParam {String} La velocidad con se va adquirir. Ejem. "velocidad": "40 MBPS"
+ *@apiParam {String} Descripcion de las plataformas que vienen en la promocion. Ejem. "descripcion": "Disney+"
+ *
+ * @apiSuccess {Object}:{}
+ * @apiError {Object}:{}
+ */
+
 exports.editarPromociones = (req, res)=>{
   /* 
   Ejemplo de la edicion en Postman
@@ -50,6 +77,14 @@ exports.editarPromociones = (req, res)=>{
 
 /* LISTAR PROMOCIONES */
 
+/**
+ * @api {get} /listarPromociones Listar todos los datos de las promociones.
+ * @apiName listarPromociones
+ * @apiGroup Promociones
+ * 
+ * @apiSuccess {Object}:{}
+ * @apiError {Object}:{}
+ */
 exports.listarPromociones = (req, res) => {
 
   /* 
@@ -72,13 +107,26 @@ exports.listarPromociones = (req, res) => {
     if (error) {
       console.log("Error al mostrar los datos")
     } else {
-      console.log({ data: data })
+      /* console.log({ data: data }) */
       return res.status(200).json({
         data:data
       });
     }
   })
 }
+
+/* ELIMINAR PROMOCIONES */
+/**
+ * @api {post} /eliminarPromociones Edita las promociones
+ * @apiName eliminarPromociones
+ * @apiGroup Promociones
+ *
+ * @apiParam {Number} Id de la promocion Ejm. "_id":"6369414484031672160411cf"
+ *
+ * @apiSuccess {Object}:{}
+ * @apiError {Object}:{}
+ */
+
 
 exports.eliminarPromociones = (req, res) => {
   const id = req.body._id;
