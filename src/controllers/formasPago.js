@@ -32,9 +32,15 @@ exports.registrarFormaPago = (req, res)=> {
   const nuevoRegistro = new datos(req.body)
   nuevoRegistro.save((error, user) => {
     if (error) {
-      console.log("Revisar Datos")
+      /* console.log("Revisar Datos") */
+      return res.status(500).json({
+        error:error
+      });
     } else {
-      console.log("Registro de Forma de pago exitoso")
+      /* console.log("Registro de Forma de pago exitoso") */
+      return res.status(201).json({
+        user: user
+      });
     }
   })
 }
@@ -78,9 +84,15 @@ exports.editarFormaPago = (req, res)=>{
   datos.findByIdAndUpdate(id, (req.body), (error, data) => {
 
     if (error) {
-      console.log("Error de edición ")
+      /* console.log("Error de edición ") */
+      return res.status(500).json({
+        error:error
+      });
     } else {
-      console.log("Campos editados")
+      /* console.log("Campos editados") */
+      return res.status(201).json({
+        user: user
+      });
     }
   })
 }
@@ -99,7 +111,10 @@ exports.editarFormaPago = (req, res)=>{
 exports.listarFormaPago = (req, res)=>{
   datos.find().exec((error, data) => {
     if (error) {
-      console.log("Error al mostrar los datos")
+      /* console.log("Error al mostrar los datos") */
+      return res.status(500).json({
+        error:error
+      });
     } else {
       /* console.log({ data: data }) */
       return res.status(200).json({
@@ -127,9 +142,15 @@ exports.eliminarFormasPago = (req, res) => {
 
   datos.findByIdAndRemove(id,(req.body), (error, data) => {
     if (error) {
-      console.log("Error de eliminación ")
+      /* console.log("Error de eliminación ") */
+      return res.status(500).json({
+        error:error
+      });
     } else {
-      console.log("Campos eliminado")
+      /* console.log("Campos eliminado") */
+      return res.status(200).json({
+        data:data
+      });
     }
   })
 }

@@ -65,9 +65,15 @@ exports.registroMiltel = (req, res) => {
   const nuevoRegistro = new datos(req.body)
   nuevoRegistro.save((error, user) => {
     if (error) {
-      console.log("Revisar Datos")
+      /* console.log("Revisar Datos") */
+      return res.status(500).json({
+        error:error
+      });
     } else {
-      console.log("Registro de Cobertura exitoso")
+      /* console.log("Registro de Cobertura exitoso") */
+      return res.status(201).json({
+        user: user
+      });
     }
   })
 }
@@ -142,9 +148,15 @@ exports.edicionMiltel = (req, res) => {
   datos.findByIdAndUpdate(id, (req.body), (error, data) => {
 
     if (error) {
-      console.log("Error de edición ")
+      /* console.log("Error de edición ") */
+      return res.status(500).json({
+        error:error
+      });
     } else {
-      console.log("Campos editados")
+      /* console.log("Campos editados") */
+      return res.status(201).json({
+        user: user
+      });
     }
   })
 }
@@ -161,7 +173,10 @@ exports.edicionMiltel = (req, res) => {
 exports.listarMiltel = (req, res) => {
   datos.find().exec((error, data) => {
     if (error) {
-      console.log("Error al mostrar los datos")
+      /* console.log("Error al mostrar los datos") */
+      return res.status(500).json({
+        error:error
+      });
     } else {
       /* console.log({ data: data }) */
       return res.status(200).json({
@@ -189,8 +204,14 @@ exports.eliminarMiltel = (req, res) => {
   datos.findByIdAndRemove(id,(req.body), (error, data) => {
     if (error) {
       console.log("Error de eliminación ")
+      return res.status(500).json({
+        error:error
+      });
     } else {
       console.log("Campos eliminado")
+      return res.status(200).json({
+        data:data
+      });
     }
   })
 }

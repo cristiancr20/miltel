@@ -57,23 +57,23 @@ exports.registrarPersona = (req, res) => {
  * @apiError {Object}:{}
  */
 exports.editarPersona = (req, res) => {
-  
-/* 
-  Ejemplo de Postman para la edicion de la informacion del usuario, 
-  aquí no se editara el estado del usuario.
-  Primeramente se pide el _id del usuario para poder realizar la busqueda,
-  junto con el _id tambien los datos que desea cambiar.
 
-  {
-        "_id": "635c5f0e702489c2df5acd22",
-        "nombre": "Cristian",
-        "apellido": "Capa",
-        "correo": "cristian.capa@unl.edu.ec",
-        "contrasena": "capita"
-        
-  } 
-*/
-const id = req.body._id;
+  /* 
+    Ejemplo de Postman para la edicion de la informacion del usuario, 
+    aquí no se editara el estado del usuario.
+    Primeramente se pide el _id del usuario para poder realizar la busqueda,
+    junto con el _id tambien los datos que desea cambiar.
+  
+    {
+          "_id": "635c5f0e702489c2df5acd22",
+          "nombre": "Cristian",
+          "apellido": "Capa",
+          "correo": "cristian.capa@unl.edu.ec",
+          "contrasena": "capita"
+          
+    } 
+  */
+  const id = req.body._id;
 
   datos.findByIdAndUpdate(id, (req.body), (error, data) => {
     if (error) {
@@ -97,15 +97,15 @@ const id = req.body._id;
  * @apiError {Object}:{}
  */
 exports.editarEstado = (req, res) => {
-/* 
-  Ejemplo en Postman de como editar el estado del usuario.
-  Primeramente se pide el id del usuario, para poder realizar la busqueda
-  y tambien el dato que se desea editar en este caso el estado del usuario
-  {
-    "_id":"635c5f0e702489c2df5acd22",
-    "estado": "Inactivo"
-  }
-*/
+  /* 
+    Ejemplo en Postman de como editar el estado del usuario.
+    Primeramente se pide el id del usuario, para poder realizar la busqueda
+    y tambien el dato que se desea editar en este caso el estado del usuario
+    {
+      "_id":"635c5f0e702489c2df5acd22",
+      "estado": "Inactivo"
+    }
+  */
 
   const id = req.body._id;
   const estado = req.body.estado;
@@ -177,16 +177,19 @@ exports.iniciarSesion = (req, res) => {
  * @apiError {Object}:{}
  */
 exports.listarUsuario = (req, res) => {
-datos.find().exec((error, data) => {
-  if (error) {
-    console.log("Error al mostrar los datos")
-  } else {
-    /* console.log({ data: data }) */
-    return res.status(200).json({
-      data:data
-    });
-  }
-})
+  datos.find().exec((error, data) => {
+    if (error) {
+      console.log("Error al mostrar los datos")
+      return res.status(500).json({
+        error:error
+      });
+    } else {
+      /* console.log({ data: data }) */
+      return res.status(200).json({
+        data: data
+      });
+    }
+  })
 }
 
 /* Eliminar Usuarios */
@@ -201,14 +204,24 @@ datos.find().exec((error, data) => {
  * @apiSuccess {Object}:{}
  * @apiError {Object}:{}
  */
-exports.eliminarUsuario  = (req, res) => {
+exports.eliminarUsuario = (req, res) => {
   const id = req.body._id;
 
-  datos.findByIdAndRemove(id,(req.body), (error, data) => {
+  datos.findByIdAndRemove(id, (req.body), (error, data) => {
     if (error) {
       console.log("Error de eliminación ")
     } else {
       console.log("Campos eliminado")
     }
   })
+}
+
+/* BUSCAR USUARIO POR ID */
+exports.buscarUsuario = async (req, res) => {
+  try {
+    const usuario = await datos.findById(req.params.id);
+    res.status(200).json(usuario);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 }

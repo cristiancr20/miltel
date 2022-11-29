@@ -27,6 +27,9 @@ exports.registrarPlanes = (req, res) => {
   nuevoRegistro.save((error, user) => {
     if (error) {
       console.log("Revisar Datos")
+      return res.status(500).json({
+        error:error
+      });
     } else {
       console.log("Registro de Planes exitoso")
     }
@@ -39,7 +42,7 @@ exports.registrarPlanes = (req, res) => {
  * @apiName editarPlanes
  * @apiGroup Planes
  *
- * @apiParam {Numbre} Id del plan que se quiere editar. Ejm.  "_id":"6362e4d002139d0cad99e502",
+ * @apiParam {ObjectId} Id del plan que se quiere editar. Ejm.  "_id":"6362e4d002139d0cad99e502",
  * @apiParam {String} Tipo de plan Ejm. "tipo":"Fibra Optica V2"
  * @apiParam {String} Cobertura que se va a brindar. Ejm."cobertura": "20 Mbps"
  * @apiParam {String} Nombre del plan. Ejm. "nombre":"BDH"
