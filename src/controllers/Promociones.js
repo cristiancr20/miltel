@@ -139,3 +139,13 @@ exports.eliminarPromociones = (req, res) => {
     }
   })
 }
+
+/* BUSCAR PROMOCIONES POR ID */
+exports.buscarPromociones = async (req, res) => {
+  try {
+    const promociones = await datos.findById(req.params.id);
+    res.status(200).json(promociones);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+}

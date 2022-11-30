@@ -27,13 +27,13 @@ exports.registrarCobertura = (req, res) => {
     } 
   */
 
-  
+
   const nuevoRegistro = new datos(req.body)
   nuevoRegistro.save((error, user) => {
     if (error) {
       /* console.log("Revisar Datos") */
       return res.status(500).json({
-        error:error
+        error: error
       });
     } else {
       /* console.log("Registro de Cobertura exitoso") */
@@ -82,7 +82,7 @@ exports.editarCobertura = (req, res) => {
     if (error) {
       /* console.log("Error de edición ") */
       return res.status(500).json({
-        error:error
+        error: error
       });
     } else {
       /* console.log("Campos editados") */
@@ -122,14 +122,14 @@ exports.listarCobertura = (req, res) => {
         } */
   datos.find().exec((error, data) => {
     if (error) {
-      /* console.log("Error al mostrar los datos") */
+      console.log("Error al mostrar los datos")
       return res.status(500).json({
         error: error
       });
     } else {
       /* console.log({ data: data }) */
       return res.status(201).json({
-        data:data
+        data: data
       });
     }
   })
@@ -151,7 +151,7 @@ exports.listarCobertura = (req, res) => {
 exports.eliminarCobertura = (req, res) => {
   const id = req.body._id;
 
-  datos.findByIdAndRemove(id,(req.body), (error, data) => {
+  datos.findByIdAndRemove(id, (req.body), (error, data) => {
     if (error) {
       /* console.log("Error de eliminación ") */
       return res.status(500).json({
@@ -160,8 +160,18 @@ exports.eliminarCobertura = (req, res) => {
     } else {
       /* console.log("Campos eliminado") */
       return res.status(201).json({
-        data:data
+        data: data
       });
     }
   })
+}
+
+/* BUSCAR COBERTURA POR ID */
+exports.buscarCobertura = async (req, res) => {
+  try {
+    const cobertura = await datos.findById(req.params.id);
+    res.status(200).json(cobertura);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 }

@@ -154,3 +154,13 @@ exports.eliminarFormasPago = (req, res) => {
     }
   })
 }
+
+/* BUSCAR FORMAS PAGO POR ID */
+exports.buscarFormasPago = async (req, res) => {
+  try {
+    const formasPago = await datos.findById(req.params.id);
+    res.status(200).json(formasPago);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+}

@@ -215,3 +215,13 @@ exports.eliminarMiltel = (req, res) => {
     }
   })
 }
+
+/* BUSCAR MILTEL POR ID */
+exports.buscarMiltel = async (req, res) => {
+  try {
+    const miltel = await datos.findById(req.params.id);
+    res.status(200).json(miltel);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+}

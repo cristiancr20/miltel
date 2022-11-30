@@ -10,7 +10,7 @@ router.post('/editarUsuario', editarPersona);
 router.post('/editarEstado', editarEstado);
 router.post('/iniciarSesion', iniciarSesion);
 router.post('/eliminarUsuario', eliminarUsuario)
-router.get('/listarUsuario', listarUsuario);
-router.get("/:id", buscarUsuario);
+router.get('/listar/usuario', listarUsuario);
+router.get("/buscar/usuario/:id", buscarUsuario);
 
 module.exports = router;

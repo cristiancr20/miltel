@@ -141,3 +141,13 @@ exports.eliminarFooter = (req, res) => {
     }
   })
 }
+
+/* BUSCAR FOOTER POR ID */
+exports.buscarFooter = async (req, res) => {
+  try {
+    const footer = await datos.findById(req.params.id);
+    res.status(200).json(footer);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+}

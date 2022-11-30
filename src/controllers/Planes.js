@@ -87,8 +87,9 @@ exports.listarPlanes = (req, res) => {
   datos.find().exec((error, data) => {
     if (error) {
       console.log("Error al mostrar los datos")
+      return res.status(500).json({error:error})
     } else {
-      /* console.log({ data: data }) */
+      console.log({ data: data })
       return res.status(200).json({
         data:data
       });
@@ -117,4 +118,14 @@ exports.eliminarPlanes = (req, res) => {
       console.log("Campos eliminado")
     }
   })
+}
+
+/* BUSCAR PLANES POR ID */
+exports.buscarPlanes = async (req, res) => {
+  try {
+    const planes = await datos.findById(req.params.id);
+    res.status(200).json(planes);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 }

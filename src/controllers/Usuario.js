@@ -185,7 +185,7 @@ exports.listarUsuario = (req, res) => {
       });
     } else {
       /* console.log({ data: data }) */
-      return res.status(200).json({
+      return res.status(201).json({
         data: data
       });
     }

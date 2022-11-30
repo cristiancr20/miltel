@@ -102,3 +102,13 @@ exports.eliminarQuienesSomos = (req, res) => {
     }
   })
 }
+
+/* BUSCAR QUIENES SOMOS POR ID */
+exports.buscarQuienesSomos = async (req, res) => {
+  try {
+    const quienesSomos = await datos.findById(req.params.id);
+    res.status(200).json(quienesSomos);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+}
