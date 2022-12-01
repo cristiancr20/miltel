@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+
+const fileUpload = require('express-fileupload');
+
 const app = express();
 require('dotenv').config();
 
@@ -10,6 +13,8 @@ require('dotenv').config();
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(cors());
+app.use(fileUpload())
+
 
 //conection bd
 mongoose.connect(process.env.DATABASE, {

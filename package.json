@@ -13,10 +13,19 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "express-fileupload": "^1.4.0",
     "mongoose": "^6.7.0",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "link-module-alias": "^1.2.0",
     "nodemon": "^2.0.20"
+  },
+  "_moduleAliases": {
+    "@models": "src/models",
+    "@controllers": "src/controllers",
+    "@routers": "src/routes",
+    "@assets": "src/assets"
   }
 }
+

@@ -144,10 +144,19 @@ exports.eliminarFooter = (req, res) => {
 
 /* BUSCAR FOOTER POR ID */
 exports.buscarFooter = async (req, res) => {
-  try {
-    const footer = await datos.findById(req.params.id);
-    res.status(200).json(footer);
-  } catch (err) {
-    res.status(500).json(err);
-  }
+  const id = req.params.id;
+  datos.findById(id, (error, data) => {
+    if (error) {
+      return res.status(500).json({
+        message: 'Error al obtener registro',
+        error: error
+      })
+    }
+    if (!data) {
+      return res.status(404).json({
+        message: 'No existe registro'
+      })
+    }
+    return res.status(200).json(data)
+  })
 }

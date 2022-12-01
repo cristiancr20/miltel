@@ -39,7 +39,7 @@ exports.registroMiltel = (req, res) => {
         "url": "https://www.tooltyp.com/wp-content/uploads/2014/10/1900x920-8-beneficios-de-usar-imagenes-en-nuestros-sitios-web.jpg",
         "dimension": "250 px"
     },
-    "video": "https://www.tooltyp.com/wp-content/uploads/2014/10/1900x920-8-beneficios-de-usar-imagenes-en-nuestros-sitios-web.jpg",
+    "video": "",
     "numeroContacto": "0999999",
     "correo": "cristian.capa@gmail.com",
     "mensajeInicio": "Ya llegó a Amaluza el internet de FIBRA ÓPTICA de máxima velocidad.",
@@ -218,10 +218,19 @@ exports.eliminarMiltel = (req, res) => {
 
 /* BUSCAR MILTEL POR ID */
 exports.buscarMiltel = async (req, res) => {
-  try {
-    const miltel = await datos.findById(req.params.id);
-    res.status(200).json(miltel);
-  } catch (err) {
-    res.status(500).json(err);
-  }
+  const id = req.params.id;
+  datos.findById(id, (error, data) => {
+    if (error) {
+      return res.status(500).json({
+        message: 'Error al obtener registro',
+        error: error
+      })
+    }
+    if (!data) {
+      return res.status(404).json({
+        message: 'No existe registro'
+      })
+    }
+    return res.status(200).json(data)
+  })
 }

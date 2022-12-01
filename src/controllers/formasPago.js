@@ -15,7 +15,7 @@ const datos = require('../models/formasPago');
  * @apiSuccess {Object}:{}
  * @apiError {Object}:{}
  */
-exports.registrarFormaPago = (req, res)=> {
+exports.registrarFormaPago = (req, res) => {
   /*
   Ejemplo del registro de forma de pago en Postman.
   {
@@ -34,7 +34,7 @@ exports.registrarFormaPago = (req, res)=> {
     if (error) {
       /* console.log("Revisar Datos") */
       return res.status(500).json({
-        error:error
+        error: error
       });
     } else {
       /* console.log("Registro de Forma de pago exitoso") */
@@ -62,7 +62,7 @@ exports.registrarFormaPago = (req, res)=> {
  * @apiError {Object}:{}
  */
 
-exports.editarFormaPago = (req, res)=>{
+exports.editarFormaPago = (req, res) => {
   /* 
 
   Ejemplo de edicion de la forma de pagos en Postman
@@ -86,12 +86,12 @@ exports.editarFormaPago = (req, res)=>{
     if (error) {
       /* console.log("Error de edición ") */
       return res.status(500).json({
-        error:error
+        error: error
       });
     } else {
       /* console.log("Campos editados") */
       return res.status(201).json({
-        user: user
+        data: data
       });
     }
   })
@@ -108,17 +108,17 @@ exports.editarFormaPago = (req, res)=>{
  * @apiError {Object}:{}
  */
 
-exports.listarFormaPago = (req, res)=>{
+exports.listarFormaPago = (req, res) => {
   datos.find().exec((error, data) => {
     if (error) {
       /* console.log("Error al mostrar los datos") */
       return res.status(500).json({
-        error:error
+        error: error
       });
     } else {
       /* console.log({ data: data }) */
       return res.status(200).json({
-        data:data
+        data: data
       });
     }
   })
@@ -140,16 +140,16 @@ exports.listarFormaPago = (req, res)=>{
 exports.eliminarFormasPago = (req, res) => {
   const id = req.body._id;
 
-  datos.findByIdAndRemove(id,(req.body), (error, data) => {
+  datos.findByIdAndRemove(id, (req.body), (error, data) => {
     if (error) {
       /* console.log("Error de eliminación ") */
       return res.status(500).json({
-        error:error
+        error: error
       });
     } else {
       /* console.log("Campos eliminado") */
       return res.status(200).json({
-        data:data
+        data: data
       });
     }
   })
@@ -157,10 +157,44 @@ exports.eliminarFormasPago = (req, res) => {
 
 /* BUSCAR FORMAS PAGO POR ID */
 exports.buscarFormasPago = async (req, res) => {
-  try {
-    const formasPago = await datos.findById(req.params.id);
-    res.status(200).json(formasPago);
-  } catch (err) {
-    res.status(500).json(err);
+  const id = req.params.id;
+  datos.findById(id, (error, data) => {
+    if (error) {
+      return res.status(500).json({
+        message: 'Error al obtener registro',
+        error: error
+      })
+    }
+    if (!data) {
+      return res.status(404).json({
+        message: 'No existe registro'
+      })
+    }
+    return res.status(200).json(data)
+  })
+}
+
+
+exports.subirArchivo = (req, res) =>{
+  let sampleFile;
+  let uploadPath;
+
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send('No se han cargado archivos.');
   }
+
+  
+  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+  sampleFile = req.files.sampleFile;
+  uploadPath = 'src/assets/'+sampleFile.name;
+  
+  console.log(uploadPath)
+  // Use the mv() method to place the file somewhere on your server
+  sampleFile.mv(uploadPath, function(err) {
+    if (err){
+      return res.status(500).send(err);
+    }
+
+    res.send('File uploaded!');
+  });
 }

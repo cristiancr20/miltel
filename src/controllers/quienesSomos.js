@@ -105,10 +105,19 @@ exports.eliminarQuienesSomos = (req, res) => {
 
 /* BUSCAR QUIENES SOMOS POR ID */
 exports.buscarQuienesSomos = async (req, res) => {
-  try {
-    const quienesSomos = await datos.findById(req.params.id);
-    res.status(200).json(quienesSomos);
-  } catch (err) {
-    res.status(500).json(err);
-  }
+  const id = req.params.id;
+  datos.findById(id, (error, data) => {
+    if (error) {
+      return res.status(500).json({
+        message: 'Error al obtener registro',
+        error: error
+      })
+    }
+    if (!data) {
+      return res.status(404).json({
+        message: 'No existe registro'
+      })
+    }
+    return res.status(200).json(data)
+  })
 }
