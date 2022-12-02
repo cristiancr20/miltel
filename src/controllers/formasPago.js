@@ -1,6 +1,6 @@
 const datos = require('../models/formasPago');
 
-/* REGISTRO DE FORMAS DE PAGO */
+/* REGISTRO DE FORMAS DE PAGO  */
 
 /**
  * @api {post} /registrarFormaPago Registrar los datos de la forma de pago.
